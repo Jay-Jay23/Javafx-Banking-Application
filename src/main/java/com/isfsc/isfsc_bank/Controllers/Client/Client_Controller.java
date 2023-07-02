@@ -1,0 +1,26 @@
+package com.isfsc.isfsc_bank.Controllers.Client;
+
+import com.isfsc.isfsc_bank.Models.Model;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.BorderPane;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class Client_Controller implements Initializable {
+
+    public BorderPane client_parent;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Model.getInstance().getViewFactory().getClientSelectedMenuItem().addListener((observableValue, s, t1) -> {
+            switch (t1){
+                case TRANSACTIONS -> client_parent.setCenter(Model.getInstance().getViewFactory().getTransactionsView());
+                case ACCOUNTS -> client_parent.setCenter(Model.getInstance().getViewFactory().getAccountsView());
+                default -> client_parent.setCenter(Model.getInstance().getViewFactory().getDashboardView());
+
+            }
+        });
+
+    }
+}
